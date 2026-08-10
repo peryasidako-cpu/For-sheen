@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>From Kenken — So Sorry 🤍</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #050505;
+    color: white;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+#cinematic {
+
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(80,55,62,.25),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #120d0f,
+            #050505
+        );
+}
+
+#cinematic::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.4)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   GRAIN
+========================================= */
+
+.grain {
+
+    position: absolute;
+
+    inset: -50%;
+
+    width: 200%;
+    height: 200%;
+
+    opacity: .045;
+
+    pointer-events: none;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+    animation:
+        grain
+        .25s
+        steps(2)
+        infinite;
+}
+
+@keyframes grain {
+
+    0% {
+        transform: translate(0,0);
+    }
+
+    25% {
+        transform: translate(-2%,2%);
+    }
+
+    50% {
+        transform: translate(2%,-1%);
+    }
+
+    75% {
+        transform: translate(-1%,-2%);
+    }
+
+    100% {
+        transform: translate(1%,1%);
+    }
+
+}
+
+
+/* =========================================
+   STARS
+========================================= */
+
+.stars {
+
+    position: absolute;
+
+    inset: 0;
+}
+
+.star {
+
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    opacity: .15;
+
+    animation:
+        twinkle
+        3s
+        infinite
+        ease-in-out;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+
+        opacity: .08;
+
+        transform:
+            scale(.7);
+    }
+
+    50% {
+
+        opacity: .7;
+
+        transform:
+            scale(1.4);
+    }
+
+}
+
+
+/* =========================================
+   OPENING
+========================================= */
+
+.opening {
+
+    z-index: 100;
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #241a1e,
+            #050505 70%
+        );
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s;
+}
+
+.opening.hidden {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+.opening-inner {
+
+    padding: 30px;
+}
+
+.opening-small {
+
+    font-size: 10px;
+
+    letter-spacing: 6px;
+
+    color: #aaa;
+
+    margin-bottom: 25px;
+}
+
+.opening h1 {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(
+            60px,
+            14vw,
+            125px
+        );
+
+    font-weight: 400;
+
+    line-height: .9;
+
+    margin-bottom: 25px;
+}
+
+.opening-sub {
+
+    color: #aaa;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 45px;
+}
+
+.open-btn {
+
+    padding:
+        15px 35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    border-radius:
+        100px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: white;
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    cursor: pointer;
+
+    transition: .4s;
+
+    backdrop-filter:
+        blur(10px);
+}
+
+.open-btn:hover {
+
+    background:
+        rgba(255,255,255,.12);
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================
+   SLIDES
+========================================= */
+
+.slide {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        40px 25px 90px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        scale(1.06);
+
+    transition:
+
+        opacity 1.4s ease,
+
+        transform 2.2s
+        cubic-bezier(
+            .2,
+            .7,
+            .2,
+            1
+        );
+}
+
+.slide.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        scale(1);
+}
+
+.content {
+
+    width:
+        min(
+            850px,
+            100%
+        );
+
+    text-align: center;
+}
+
+
+/* =========================================
+   TEXT
+========================================= */
+
+.eyebrow {
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+    text-transform:
+        uppercase;
+
+    color: #a89b9e;
+
+    margin-bottom: 25px;
+}
+
+h1,
+h2 {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-weight: 400;
+}
+
+h1 {
+
+    font-size:
+        clamp(
+            58px,
+            12vw,
+            120px
+        );
+
+    line-height: .9;
+
+    letter-spacing: -3px;
+}
+
+h2 {
+
+    font-size:
+        clamp(
+            45px,
+            8vw,
+            82px
+        );
+
+    line-height: 1;
+
+    margin-bottom: 30px;
+}
+
+p {
+
+    font-size:
+        clamp(
+            15px,
+            2.3vw,
+            21px
+        );
+
+    font-weight: 300;
+
+    line-height: 1.9;
+
+    color: #ddd5d7;
+}
+
+.highlight {
+
+    color: white;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(
+            35px,
+            7vw,
+            65px
+        );
+
+    font-style: italic;
+}
+
+.final-line {
+
+    margin-top: 35px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(
+            25px,
+            5vw,
+            45px
+        );
+
+    font-style: italic;
+
+    color: #d9c8cc;
+}
+
+.signature {
+
+    margin-top: 35px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 25px;
+
+    color: #cbbcc0;
+}
+
+.heart {
+
+    font-size: 55px;
+
+    margin-bottom: 20px;
+
+    animation:
+        heartbeat
+        2s
+        infinite
+        ease-in-out;
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+
+}
+
+
+/* =========================================
+   MUSIC BUTTON
+========================================= */
+
+#musicButton {
+
+    position: fixed;
+
+    z-index: 150;
+
+    top: 55px;
+
+    right: 22px;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(10px);
+
+    transition: .3s;
+}
+
+#musicButton:hover {
+
+    background:
+        rgba(255,255,255,.15);
+
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls {
+
+    position: fixed;
+
+    z-index: 120;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.nav {
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.nav:hover {
+
+    background:
+        rgba(255,255,255,.15);
+}
+
+.dots {
+
+    display: flex;
+
+    gap: 6px;
+}
+
+.dot {
+
+    width: 5px;
+    height: 5px;
+
+    background: #555;
+
+    border-radius: 20px;
+
+    transition: .5s;
+}
+
+.dot.active {
+
+    width: 22px;
+
+    background: #ddd;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.progress {
+
+    position: fixed;
+
+    z-index: 130;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 2px;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.progress-bar {
+
+    height: 100%;
+
+    width: 0%;
+
+    background:
+        rgba(255,255,255,.8);
+
+    transition:
+        width .3s linear;
+}
+
+
+/* =========================================
+   CORNER
+========================================= */
+
+.corner {
+
+    position: fixed;
+
+    z-index: 120;
+
+    top: 25px;
+
+    left: 25px;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+}
+
+.corner-right {
+
+    position: fixed;
+
+    z-index: 120;
+
+    top: 25px;
+
+    right: 80px;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: #777;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px) {
+
+    .slide {
+
+        padding:
+            30px
+            22px
+            85px;
+    }
+
+    p {
+
+        line-height: 1.8;
+    }
+
+    .controls {
+
+        bottom: 15px;
+    }
+
+    .corner,
+    .corner-right {
+
+        font-size: 7px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     MUSIC
+========================================= -->
+
+<audio
+    id="bgMusic"
+    loop
+    preload="auto">
+
+    <source
+        src="ssstik.io_1786374652821.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<div id="cinematic">
+
+
+<div
+    class="stars"
+    id="stars">
+</div>
+
+
+<div class="grain"></div>
+
+
+<!-- =========================================
+     OPENING
+========================================= -->
+
+<div
+    class="opening"
+    id="opening">
+
+    <div class="opening-inner">
+
+        <div class="opening-small">
+            A LETTER FROM
+        </div>
+
+        <h1>
+            Kenken
+        </h1>
+
+        <div class="opening-sub">
+            for someone who once meant everything
+        </div>
+
+        <button
+            class="open-btn"
+            onclick="startStory()">
+
+            BUKA SURAT 🤍
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     CORNERS
+========================================= -->
+
+<div class="corner">
+    FROM KENKEN
+</div>
+
+<div class="corner-right">
+    FOR SHEEN
+</div>
+
+
+<!-- =========================================
+     MUSIC BUTTON
+========================================= -->
+
+<button
+    id="musicButton"
+    onclick="toggleMusic()">
+
+    🔇
+
+</button>
+
+
+<!-- =========================================
+     PROGRESS
+========================================= -->
+
+<div class="progress">
+
+    <div
+        class="progress-bar"
+        id="progress">
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     SLIDE 1
+     9 seconds
+========================================= -->
+
+<section
+    class="slide active"
+    data-duration="9000">
+
+<div class="content">
+
+    <div class="heart">
+        🤍
+    </div>
+
+    <div class="eyebrow">
+        A Little Letter
+    </div>
+
+    <h1>
+        Happy Birthday,<br>
+        Sheen.
+    </h1>
+
+    <p style="margin-top:35px;">
+        Ada sesuatu yang ingin aku sampaikan...
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 2
+     13 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="13000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        Before Everything
+    </div>
+
+    <h2>
+        Aku sempat<br>
+        berpikir lama.
+    </h2>
+
+    <p>
+        Apakah aku masih pantas
+        mengucapkan selamat ulang tahun
+        kepada kamu setelah semua
+        yang terjadi di antara kita.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 3
+     12 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="12000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        But I Still Write This
+    </div>
+
+    <p>
+        Bukan untuk mengganggu hidupmu.
+        <br>
+        Bukan juga untuk memaksamu kembali.
+    </p>
+
+    <div class="final-line">
+        Aku cuma ingin mengatakan...
+    </div>
+
+    <div
+        class="highlight"
+        style="margin-top:25px;">
+
+        Aku menyesal.
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 4
+     14 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="14000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        I Realized Too Late
+    </div>
+
+    <h2>
+        Aku pernah<br>
+        menyia-nyiakanmu.
+    </h2>
+
+    <p>
+        Aku menyesal karena pernah
+        menyia-nyiakan seseorang
+        yang ternyata begitu berarti
+        buat aku.
+        <br><br>
+        Mungkin ada perkataan dan sikapku
+        yang pernah melukai kamu.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 5
+     11 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="11000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        The Hardest Part
+    </div>
+
+    <div class="highlight">
+        Yang paling aku sesali...
+    </div>
+
+    <p style="margin-top:30px;">
+        Aku baru benar-benar menyadari
+        betapa berharganya kamu
+        setelah kita tidak lagi bersama.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 6
+     14 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="14000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        Little Things
+    </div>
+
+    <h2>
+        Aku sering<br>
+        mengingatmu.
+    </h2>
+
+    <p>
+        Cara kamu memperlakukanku.
+        <br>
+        Cara kamu membuatku
+        merasa diperhatikan.
+        <br><br>
+        Hal-hal sederhana yang dulu
+        mungkin kuanggap biasa...
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 7
+     13 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="13000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        If I Could Turn Back Time
+    </div>
+
+    <p>
+        Kalau waktu bisa diputar kembali...
+    </p>
+
+    <div class="final-line">
+        Aku ingin lebih menghargai kamu.
+    </div>
+
+    <p style="margin-top:25px;">
+        Aku ingin lebih banyak mendengarkan.
+        <br>
+        Aku ingin lebih menjaga perasaanmu.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 8
+     11 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="11000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        But Time Doesn't Turn Back
+    </div>
+
+    <h2>
+        Penyesalan<br>
+        tidak mengubah masa lalu.
+    </h2>
+
+    <p>
+        Jadi di hari ulang tahunmu ini,
+        aku tidak akan meminta
+        kamu kembali.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 9
+     13 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="13000">
+
+<div class="content">
+
+    <div class="heart">
+        🤍
+    </div>
+
+    <div class="eyebrow">
+        My Only Wish
+    </div>
+
+    <h2>
+        Semoga kamu<br>
+        selalu bahagia.
+    </h2>
+
+    <p>
+        Semoga semua impianmu tercapai.
+        <br>
+        Semoga kamu menemukan seseorang
+        yang bisa menjaga hatimu dengan baik.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 10
+     12 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="12000">
+
+<div class="content">
+
+    <div class="eyebrow">
+        If You Ever Remember Me
+    </div>
+
+    <p>
+        Aku harap yang kamu ingat
+        bukan hanya kesalahan-kesalahanku.
+    </p>
+
+    <div class="final-line">
+        Tapi seseorang yang pernah
+        benar-benar mencintai kamu.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     SLIDE 11
+     13 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="13000">
+
+<div class="content">
+
+    <div class="heart">
+        🥀
+    </div>
+
+    <div class="eyebrow">
+        The Truth
+    </div>
+
+    <div class="highlight">
+        Aku masih menyayangimu.
+    </div>
+
+    <p style="margin-top:30px;">
+        Dan mungkin bagian paling menyakitkan
+        dari semuanya adalah...
+    </p>
+
+    <div class="final-line">
+        aku harus belajar menyayangi
+        kamu dari jauh.
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     FINAL
+     18 seconds
+========================================= -->
+
+<section
+    class="slide"
+    data-duration="18000">
+
+<div class="content">
+
+    <div class="heart">
+        🤍
+    </div>
+
+    <div class="eyebrow">
+        From Kenken
+    </div>
+
+    <h2>
+        Selamat ulang tahun,<br>
+        Sheen.
+    </h2>
+
+    <p>
+
+        Maaf karena dulu aku tidak cukup
+        menghargai kehadiranmu.
+
+        <br><br>
+
+        Terima kasih karena pernah menjadi
+        bagian terindah dalam hidupku.
+
+    </p>
+
+    <div class="signature">
+
+        From Kenken,<br>
+        So Sorry.
+
+    </div>
+
+    <div class="final-line">
+        Semoga kamu bahagia.
+    </div>
+
+    <p style="margin-top:15px;">
+
+        Bahkan jika kebahagiaan itu
+        akhirnya bukan lagi bersamaku. 🤍
+
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     CONTROLS
+========================================= -->
+
+<div class="controls">
+
+    <button
+        class="nav"
+        onclick="previousSlide()">
+
+        ‹
+
+    </button>
+
+    <div
+        class="dots"
+        id="dots">
+    </div>
+
+    <button
+        class="nav"
+        onclick="nextSlide()">
+
+        ›
+
+    </button>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   CREATE STARS
+========================================= */
+
+const starContainer =
+    document.getElementById("stars");
+
+for (let i = 0; i < 100; i++) {
+
+    const star =
+        document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 4 + "s";
+
+    star.style.animationDuration =
+        (2 + Math.random() * 4) + "s";
+
+    starContainer.appendChild(star);
+
+}
+
+
+/* =========================================
+   SLIDER
+========================================= */
+
+const slides =
+    document.querySelectorAll(".slide");
+
+const dotsContainer =
+    document.getElementById("dots");
+
+const progress =
+    document.getElementById("progress");
+
+const music =
+    document.getElementById("bgMusic");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+let current = 0;
+
+let timer = null;
+
+let progressTimer = null;
+
+
+/* =========================================
+   CREATE DOTS
+========================================= */
+
+slides.forEach((slide, index) => {
+
+    const dot =
+        document.createElement("div");
+
+    dot.className = "dot";
+
+    if (index === 0) {
+
+        dot.classList.add("active");
+
+    }
+
+    dot.onclick = function() {
+
+        showSlide(index);
+
+    };
+
+    dotsContainer.appendChild(dot);
+
+});
+
+
+const dots =
+    document.querySelectorAll(".dot");
+
+
+/* =========================================
+   SHOW SLIDE
+========================================= */
+
+function showSlide(index) {
+
+    clearTimeout(timer);
+
+    clearInterval(progressTimer);
+
+    if (index < 0) {
+
+        index =
+            slides.length - 1;
+
+    }
+
+    if (index >= slides.length) {
+
+        index = 0;
+
+    }
+
+
+    slides[current]
+        .classList
+        .remove("active");
+
+    dots[current]
+        .classList
+        .remove("active");
+
+
+    current = index;
+
+
+    slides[current]
+        .classList
+        .add("active");
+
+    dots[current]
+        .classList
+        .add("active");
+
+
+    startTimer();
+
+}
+
+
+/* =========================================
+   AUTO SLIDE
+========================================= */
+
+function startTimer() {
+
+    const duration =
+        parseInt(
+            slides[current]
+            .dataset
+            .duration
+        );
+
+
+    /*
+       Progress bar berjalan
+       mengikuti durasi slide.
+    */
+
+    let start =
+        Date.now();
+
+
+    progressTimer =
+        setInterval(function() {
+
+            const elapsed =
+                Date.now() - start;
+
+            let percent =
+                (elapsed / duration) * 100;
+
+
+            if (percent > 100) {
+
+                percent = 100;
+
+            }
+
+
+            progress.style.width =
+                percent + "%";
+
+
+        }, 50);
+
+
+    /*
+       Pindah setelah durasi
+       selesai.
+    */
+
+    timer =
+        setTimeout(function() {
+
+            nextSlide();
+
+        }, duration);
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+function nextSlide() {
+
+    showSlide(
+        current + 1
+    );
+
+}
+
+
+/* =========================================
+   PREVIOUS
+========================================= */
+
+function previousSlide() {
+
+    showSlide(
+        current - 1
+    );
+
+}
+
+
+/* =========================================
+   MUSIC
+========================================= */
+
+function startMusic() {
+
+    music.volume = 0.45;
+
+    music.play()
+        .then(function() {
+
+            musicButton.innerHTML =
+                "🔊";
+
+        })
+        .catch(function() {
+
+            musicButton.innerHTML =
+                "🔇";
+
+        });
+
+}
+
+
+function toggleMusic() {
+
+    if (music.paused) {
+
+        music.play();
+
+        musicButton.innerHTML =
+            "🔊";
+
+    } else {
+
+        music.pause();
+
+        musicButton.innerHTML =
+            "🔇";
+
+    }
+
+}
+
+
+/* =========================================
+   OPEN STORY
+========================================= */
+
+function startStory() {
+
+    startMusic();
+
+    document
+        .getElementById("opening")
+        .classList
+        .add("hidden");
+
+
+    /*
+       Mulai slideshow
+       setelah tombol dibuka.
+    */
+
+    showSlide(0);
+
+}
+
+
+/* =========================================
+   KEYBOARD
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key === " "
+        ) {
+
+            nextSlide();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            previousSlide();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   SWIPE MOBILE
+========================================= */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+document.addEventListener(
+    "touchstart",
+    function(event) {
+
+        touchStartX =
+            event.changedTouches[0]
+            .screenX;
+
+    }
+);
+
+
+document.addEventListener(
+    "touchend",
+    function(event) {
+
+        touchEndX =
+            event.changedTouches[0]
+            .screenX;
+
+
+        const distance =
+            touchEndX -
+            touchStartX;
+
+
+        if (
+            Math.abs(distance) < 50
+        ) {
+
+            return;
+
+        }
+
+
+        if (distance < 0) {
+
+            nextSlide();
+
+        } else {
+
+            previousSlide();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+showSlide(0);
+
+</script>
+
+</body>
+</html>
